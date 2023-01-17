@@ -7,15 +7,25 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Reflection.Emit;
+using System.Collections.Specialized;
+using System.Reflection;
+using Estacionamento.NovoEstacionamentoTableAdapters;
+using System.Drawing.Text;
+using System.CodeDom.Compiler;
 
 namespace Estacionamento
 {
     internal class Banco
     {
         SqlConnection banco = AbrindoBanco();
+        Precos valores = new Precos();
         int tempo,modelo,estadia;
         string PlacaCarro,produto;
-        Precos valores = new Precos();
+        string oferecido;
+        int conquistado;
+        int periodo;
+        int[] carros;
+        int codigo;
 
         public static SqlConnection AbrindoBanco()
         {
@@ -408,6 +418,7 @@ namespace Estacionamento
                 banco.Open();
 
                 adapter = new SqlDataAdapter(comando, banco);
+
                 adapter.Fill(dt);
                 dataGridView1.DataSource = dt;
 
@@ -418,6 +429,381 @@ namespace Estacionamento
                 Console.WriteLine(erro.Message);
             }
         }
-        
+        public void PuxandoHistorico(string dias,string estadia,string veiculos,DataGridView tabela)
+        {
+            string comando;
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter;
+            DataGridView dataGridView1 = tabela;
+            char[] numeros;
+            //Tratamento dos dados que chegam para a string veiculos 
+            numeros = veiculos.ToCharArray();
+
+            carros = Array.ConvertAll(numeros, Convert.ToInt32);
+
+            for(int i=0; i<carros.Length;i++)
+            {
+                carros[i] = carros[i] - 48;
+            }
+
+            //Tratamento dos dados que chegam para o tempo
+            if (dias != "")
+            {
+                periodo = int.Parse(dias);
+                
+                if(periodo == 24)
+                {
+                    periodo = 1; 
+                }
+            }
+
+            //Tratamento dos dados que chegam para o serviço
+            if(estadia != "") 
+            {
+                oferecido = estadia;
+            }
+            else
+            {
+                oferecido = "";
+            }
+
+            if (dias == "" && estadia == "" && veiculos == "")//Caso nada esteja selecionado, o sistema irá chamar o método de select da Tabela Histórioco
+            {
+                TabelaHistorico(tabela);
+                codigo=0;
+            }
+            else
+            {
+                try
+                {
+                    banco.Open();
+
+                    //Comandos que juntam a quantidade de dias selecionado com + alguma variável
+                    if (dias != "" && estadia == "" && veiculos == "")//Comando caso só o tempo esteja selecionado
+                    {
+                        comando = @"select * from Historico_diario as H where Data_saida between GETDATE() - @Tempo and GETDATE() order by Data_entrada asc";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+                        adapter.SelectCommand.Parameters.AddWithValue("@Tempo", periodo);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+
+                        adapter.Dispose();
+
+                        codigo = 1;
+                    }
+                    if (dias != "" && estadia != "" && veiculos == "")//Comando caso o tempo E a estadia estejam selecionados
+                    {
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.COD_Estadia in (@Estadia) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+                        adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                        adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+
+                        adapter.Dispose();
+                        codigo = 2;
+                    }
+                    if (dias != "" && estadia == "" && veiculos != "")//Comando caso o tempo E o tipo de carro estejam selecionados
+                    {
+                        switch (veiculos.Length)
+                        {
+                            case 1:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.TipoCarro in (@Carro1) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+
+                            case 2:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.TipoCarro in (@Carro1,@Carro2) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+                                break;
+                            case 3:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.TipoCarro in (@Carro1,@Carro2,@Carro3) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                break;
+                            case 4:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro4", carros[3]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+                                break;
+                            case 5:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Data_saida=A.DataSaida where A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4,@Carro5) and H.Data_saida between GETDATE() - @Tempo and GETDATE() order by H.Data_entrada asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro4", carros[3]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Carro5", carros[4]);
+                                adapter.SelectCommand.Parameters.AddWithValue(@"Tempo", periodo);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+                                break;
+
+                        }
+                        //Comandos que juntam a varivel serviço com outra
+
+                        codigo = 3;
+                    }
+                    if (dias == "" && estadia != "" && veiculos == "") //Comando caso só um tipo estadia esteja selecionado
+                    {
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia in (@Estadia)";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+                        adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+
+                        adapter.Dispose();
+
+                        codigo = 4;
+                    }
+                    if (dias == "" && estadia != "" && veiculos != "") //Comando caso um tipo de estadia E pelo menos um tipo de carro esteja selecionado
+                    {
+                        switch (veiculos.Length)
+                        {
+                            case 1:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario  as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia like @Estadia and A.TipoCarro in (@Carro1) order by H.Placa_carro asc ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 2:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario  as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia like @Estadia and A.TipoCarro in (@Carro1,@Carro2) order by H.Placa_carro asc ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 3:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario  as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia like @Estadia and A.TipoCarro in (@Carro1,@Carro2,@Carro3) order by H.Placa_carro asc ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 4:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario  as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia like @Estadia and A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4) order by H.Placa_carro asc ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro4", carros[3]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 5:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario  as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia like @Estadia and A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4,@Carro5) order by H.Placa_carro asc ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro4", carros[3]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro5", carros[4]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            default:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.COD_Estadia in (@Estadia)";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Estadia", oferecido);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+
+                                break;
+                        }
+                        codigo = 5;
+                    }
+
+                    //Comandos baseado no tipo de carro
+                    if (dias == "" && estadia == "" && veiculos != "")//só esta funcionando quando somente um tipo de carro esta selecionado
+                    {
+                        switch (veiculos.Length)
+                        {
+                            case 1:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.TipoCarro in (@Carro1) order by A.TipoCarro asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 2:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.TipoCarro in (@Carro1,@Carro2) order by A.TipoCarro asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 3:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.TipoCarro in (@Carro1,@Carro2,@Carro3) order by A.TipoCarro asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 4:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4) order by A.TipoCarro asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro4", carros[3]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 5:
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on H.Placa_carro = A.Placa_carro where A.TipoCarro in (@Carro1,@Carro2,@Carro3,@Carro4,@Carro5) order by A.TipoCarro asc";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro1", carros[0]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro2", carros[1]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro3", carros[2]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro4", carros[3]);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Carro5", carros[4]);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            default:
+                                TabelaHistorico(tabela);
+                                break;
+
+                        }
+                        codigo = 6;
+                    }
+
+                    
+                    banco.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Selecionados da Tabela Historico ERRO:{0}", e.Message);
+                }
+            }
+
+            Console.WriteLine($"CODIGO: {codigo}");
+            //LucroTotal(codigo,tabela);
+        }
+        public string LucroTotal(DataGridView dataGridView1)
+        {
+            double valor = 0;
+            string total;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(row.Cells[3].Value)))
+                {
+                    valor += Convert.ToDouble(row.Cells[3].Value);
+                }
+            }
+
+            total = valor.ToString();
+            return total;
+        }
+        public string QuantidadeVeiculos(DataGridView tabela)
+        {
+            string total;
+            int linhas;
+
+            linhas = tabela.RowCount - 1;
+
+            total = linhas.ToString();
+            return total;
+        }
+        public void BarradePesquisa(string info,DataGridView tabela)
+        {
+
+        }
     }
 }
