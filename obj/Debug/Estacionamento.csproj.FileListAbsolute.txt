@@ -19,8 +19,6 @@ D:\pedro\Documentos\Programação\C#\Estacionamento\bin\Debug\Estacionamento.pdb
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.csproj.AssemblyReference.cache
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.csproj.SuggestedBindingRedirects.cache
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.Histórico_Diaristas.resources
-D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.MensalistaGeral.resources
-D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.Mensalistas.resources
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.Form1.resources
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.Properties.Resources.resources
 D:\pedro\Documentos\Programação\C#\Estacionamento\obj\Debug\Estacionamento.csproj.GenerateResource.cache

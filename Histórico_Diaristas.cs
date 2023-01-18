@@ -57,20 +57,7 @@ namespace Estacionamento
             //roda o comando para adicionar um novo carro
             Application.Run(new NovoCarro());
         }
-        private void AdicionarMensalista_Click(object sender, EventArgs e)
-        {
-            //Fecha a guia de histórico e inicia o processo de abertura da guia de cadastro de Mensalista
-            this.Close();
-            mensalista = new Thread(abrirMensalista);
-            mensalista.SetApartmentState(ApartmentState.STA);
-            mensalista.Start();
-        }
-
-        private void abrirMensalista(object obj)
-        {
-            //Roda o comando que direciona para a guia de mensalistas
-            Application.Run(new Mensalistas());
-        }
+        
         private void OpcoesMarcadas(object sender, EventArgs e)
         {
             string automoveis = "";

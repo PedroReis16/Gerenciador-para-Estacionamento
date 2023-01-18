@@ -31,9 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.Botao_Pesquisar = new System.Windows.Forms.Button();
             this.Botao_Adicionar_Carro = new System.Windows.Forms.Button();
-            this.Botao_Informacoes = new System.Windows.Forms.Button();
             this.Botao_remover_carro = new System.Windows.Forms.Button();
-            this.Botao_mensalista = new System.Windows.Forms.Button();
             this.Botao_Historico = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.estacionamentoDataSet = new Estacionamento.EstacionamentoDataSet();
@@ -41,14 +39,14 @@
             this.ticketTableAdapter = new Estacionamento.EstacionamentoDataSetTableAdapters.TicketTableAdapter();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.cODTicketDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bilheteBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.novoEstacionamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.novoEstacionamento = new Estacionamento.NovoEstacionamento();
             this.bilheteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bilheteTableAdapter = new Estacionamento.NovoEstacionamentoTableAdapters.BilheteTableAdapter();
+            this.cODTicketDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.estacionamentoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -77,34 +75,15 @@
             this.Botao_Adicionar_Carro.UseVisualStyleBackColor = true;
             this.Botao_Adicionar_Carro.Click += new System.EventHandler(this.Botao_Adicionar_Carro_Click);
             // 
-            // Botao_Informacoes
-            // 
-            this.Botao_Informacoes.Location = new System.Drawing.Point(521, 125);
-            this.Botao_Informacoes.Name = "Botao_Informacoes";
-            this.Botao_Informacoes.Size = new System.Drawing.Size(222, 45);
-            this.Botao_Informacoes.TabIndex = 2;
-            this.Botao_Informacoes.Text = "Informações";
-            this.Botao_Informacoes.UseVisualStyleBackColor = true;
-            // 
             // Botao_remover_carro
             // 
-            this.Botao_remover_carro.Location = new System.Drawing.Point(521, 176);
+            this.Botao_remover_carro.Location = new System.Drawing.Point(521, 136);
             this.Botao_remover_carro.Name = "Botao_remover_carro";
             this.Botao_remover_carro.Size = new System.Drawing.Size(222, 45);
             this.Botao_remover_carro.TabIndex = 3;
             this.Botao_remover_carro.Text = "- Carro";
             this.Botao_remover_carro.UseVisualStyleBackColor = true;
             this.Botao_remover_carro.Click += new System.EventHandler(this.Botao_remover_carro_Click);
-            // 
-            // Botao_mensalista
-            // 
-            this.Botao_mensalista.Location = new System.Drawing.Point(521, 281);
-            this.Botao_mensalista.Name = "Botao_mensalista";
-            this.Botao_mensalista.Size = new System.Drawing.Size(222, 45);
-            this.Botao_mensalista.TabIndex = 4;
-            this.Botao_mensalista.Text = "Mensalista";
-            this.Botao_mensalista.UseVisualStyleBackColor = true;
-            this.Botao_mensalista.Click += new System.EventHandler(this.Botao_mensalista_Click);
             // 
             // Botao_Historico
             // 
@@ -161,27 +140,6 @@
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
-            // cODTicketDataGridViewTextBoxColumn
-            // 
-            this.cODTicketDataGridViewTextBoxColumn.DataPropertyName = "COD_Ticket";
-            this.cODTicketDataGridViewTextBoxColumn.HeaderText = "Ticket";
-            this.cODTicketDataGridViewTextBoxColumn.Name = "cODTicketDataGridViewTextBoxColumn";
-            this.cODTicketDataGridViewTextBoxColumn.Width = 147;
-            // 
-            // placacarroDataGridViewTextBoxColumn
-            // 
-            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
-            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
-            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
-            this.placacarroDataGridViewTextBoxColumn.Width = 147;
-            // 
-            // dataEntradaDataGridViewTextBoxColumn
-            // 
-            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
-            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data/Hora Entrada";
-            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
-            this.dataEntradaDataGridViewTextBoxColumn.Width = 147;
-            // 
             // bilheteBindingSource1
             // 
             this.bilheteBindingSource1.DataMember = "Bilhete";
@@ -206,6 +164,25 @@
             // 
             this.bilheteTableAdapter.ClearBeforeFill = true;
             // 
+            // cODTicketDataGridViewTextBoxColumn
+            // 
+            this.cODTicketDataGridViewTextBoxColumn.DataPropertyName = "COD_Ticket";
+            this.cODTicketDataGridViewTextBoxColumn.HeaderText = "Ticket";
+            this.cODTicketDataGridViewTextBoxColumn.Name = "cODTicketDataGridViewTextBoxColumn";
+            // 
+            // placacarroDataGridViewTextBoxColumn
+            // 
+            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
+            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
+            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
+            // 
+            // dataEntradaDataGridViewTextBoxColumn
+            // 
+            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
+            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data/Hora Entrada";
+            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
+            this.dataEntradaDataGridViewTextBoxColumn.Width = 200;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,9 +191,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.Botao_Historico);
-            this.Controls.Add(this.Botao_mensalista);
             this.Controls.Add(this.Botao_remover_carro);
-            this.Controls.Add(this.Botao_Informacoes);
             this.Controls.Add(this.Botao_Adicionar_Carro);
             this.Controls.Add(this.Botao_Pesquisar);
             this.Controls.Add(this.textBox1);
@@ -239,9 +214,7 @@
 
         private System.Windows.Forms.Button Botao_Pesquisar;
         private System.Windows.Forms.Button Botao_Adicionar_Carro;
-        private System.Windows.Forms.Button Botao_Informacoes;
         private System.Windows.Forms.Button Botao_remover_carro;
-        private System.Windows.Forms.Button Botao_mensalista;
         private System.Windows.Forms.Button Botao_Historico;
         private System.Windows.Forms.TextBox textBox1;
         private EstacionamentoDataSet estacionamentoDataSet;

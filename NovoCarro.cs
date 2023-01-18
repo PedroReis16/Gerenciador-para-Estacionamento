@@ -38,18 +38,7 @@ namespace Estacionamento
         {
             Application.Run(new Form1());
         }
-        private void Mensalistas_Click(object sender, EventArgs e)
-        {
-            //Botão que direciona para a tela de Novos mensalistas
-            this.Close();
-            mensalista = new Thread(abrirNovomensalista);
-            mensalista.SetApartmentState(ApartmentState.MTA);
-            mensalista.Start();
-        }
-        private void abrirNovomensalista(object obj)
-        {
-            Application.Run(new Mensalistas());
-        }
+        
         private void Adicionar_Click(object sender, EventArgs e)
         {
             int TipoCarro, TipoEstadia;

@@ -41,18 +41,6 @@ namespace Estacionamento
             Application.Run(new NovoCarro());
         }
 
-        private void Botao_mensalista_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            visao = new Thread(abrirForm4);
-            visao.SetApartmentState(ApartmentState.STA);
-            visao.Start();
-        }
-        private void abrirForm4(object obj)
-        {
-            Application.Run(new MensalistaGeral());
-        }
-
         private void Botao_Historico_Click(object sender, EventArgs e)
         {
             this.Close();

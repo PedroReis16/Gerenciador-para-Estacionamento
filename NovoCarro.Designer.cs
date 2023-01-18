@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.Voltar = new System.Windows.Forms.Button();
             this.Remover = new System.Windows.Forms.Button();
-            this.Mensalistas = new System.Windows.Forms.Button();
             this.Adicionar = new System.Windows.Forms.Button();
             this.Pesquisar = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -74,16 +73,6 @@
             this.Remover.Text = "Remover";
             this.Remover.UseVisualStyleBackColor = true;
             this.Remover.Click += new System.EventHandler(this.Remover_Click);
-            // 
-            // Mensalistas
-            // 
-            this.Mensalistas.Location = new System.Drawing.Point(565, 346);
-            this.Mensalistas.Name = "Mensalistas";
-            this.Mensalistas.Size = new System.Drawing.Size(136, 44);
-            this.Mensalistas.TabIndex = 2;
-            this.Mensalistas.Text = "Mensalistas";
-            this.Mensalistas.UseVisualStyleBackColor = true;
-            this.Mensalistas.Click += new System.EventHandler(this.Mensalistas_Click);
             // 
             // Adicionar
             // 
@@ -217,21 +206,20 @@
             this.cODTicketDataGridViewTextBoxColumn.DataPropertyName = "COD_Ticket";
             this.cODTicketDataGridViewTextBoxColumn.HeaderText = "Ticket";
             this.cODTicketDataGridViewTextBoxColumn.Name = "cODTicketDataGridViewTextBoxColumn";
-            this.cODTicketDataGridViewTextBoxColumn.Width = 147;
             // 
             // placacarroDataGridViewTextBoxColumn
             // 
             this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
             this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
             this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
-            this.placacarroDataGridViewTextBoxColumn.Width = 147;
             // 
             // dataEntradaDataGridViewTextBoxColumn
             // 
             this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
+            this.dataEntradaDataGridViewTextBoxColumn.FillWeight = 200F;
             this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data/Hora Entrada";
             this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
-            this.dataEntradaDataGridViewTextBoxColumn.Width = 147;
+            this.dataEntradaDataGridViewTextBoxColumn.Width = 200;
             // 
             // NovoCarro
             // 
@@ -248,7 +236,6 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Pesquisar);
             this.Controls.Add(this.Adicionar);
-            this.Controls.Add(this.Mensalistas);
             this.Controls.Add(this.Remover);
             this.Controls.Add(this.Voltar);
             this.Name = "NovoCarro";
@@ -267,7 +254,6 @@
 
         private System.Windows.Forms.Button Voltar;
         private System.Windows.Forms.Button Remover;
-        private System.Windows.Forms.Button Mensalistas;
         private System.Windows.Forms.Button Adicionar;
         private System.Windows.Forms.Button Pesquisar;
         private System.Windows.Forms.TextBox textBox1;

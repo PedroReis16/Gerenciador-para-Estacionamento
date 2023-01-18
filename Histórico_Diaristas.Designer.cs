@@ -41,7 +41,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.AdicionarCarro = new System.Windows.Forms.Button();
-            this.AdicionarMensalista = new System.Windows.Forms.Button();
             this.LucroTotal = new System.Windows.Forms.Label();
             this.QuantidadeVeiculos = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -160,7 +159,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(463, 230);
+            this.label1.Location = new System.Drawing.Point(498, 230);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 22);
             this.label1.TabIndex = 16;
@@ -170,7 +169,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(598, 230);
+            this.label2.Location = new System.Drawing.Point(493, 304);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(203, 22);
             this.label2.TabIndex = 17;
@@ -178,7 +177,7 @@
             // 
             // AdicionarCarro
             // 
-            this.AdicionarCarro.Location = new System.Drawing.Point(502, 350);
+            this.AdicionarCarro.Location = new System.Drawing.Point(502, 380);
             this.AdicionarCarro.Name = "AdicionarCarro";
             this.AdicionarCarro.Size = new System.Drawing.Size(256, 41);
             this.AdicionarCarro.TabIndex = 18;
@@ -186,35 +185,23 @@
             this.AdicionarCarro.UseVisualStyleBackColor = true;
             this.AdicionarCarro.Click += new System.EventHandler(this.AdicionarCarro_Click);
             // 
-            // AdicionarMensalista
-            // 
-            this.AdicionarMensalista.Location = new System.Drawing.Point(502, 397);
-            this.AdicionarMensalista.Name = "AdicionarMensalista";
-            this.AdicionarMensalista.Size = new System.Drawing.Size(256, 41);
-            this.AdicionarMensalista.TabIndex = 20;
-            this.AdicionarMensalista.Text = "+ Mensalista";
-            this.AdicionarMensalista.UseVisualStyleBackColor = true;
-            this.AdicionarMensalista.Click += new System.EventHandler(this.AdicionarMensalista_Click);
-            // 
             // LucroTotal
             // 
             this.LucroTotal.AutoSize = true;
             this.LucroTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LucroTotal.Location = new System.Drawing.Point(471, 253);
+            this.LucroTotal.Location = new System.Drawing.Point(603, 230);
             this.LucroTotal.Name = "LucroTotal";
-            this.LucroTotal.Size = new System.Drawing.Size(86, 31);
+            this.LucroTotal.Size = new System.Drawing.Size(0, 31);
             this.LucroTotal.TabIndex = 22;
-            this.LucroTotal.Text = "label3";
             // 
             // QuantidadeVeiculos
             // 
             this.QuantidadeVeiculos.AutoSize = true;
             this.QuantidadeVeiculos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuantidadeVeiculos.Location = new System.Drawing.Point(606, 253);
+            this.QuantidadeVeiculos.Location = new System.Drawing.Point(702, 295);
             this.QuantidadeVeiculos.Name = "QuantidadeVeiculos";
-            this.QuantidadeVeiculos.Size = new System.Drawing.Size(86, 31);
+            this.QuantidadeVeiculos.Size = new System.Drawing.Size(0, 31);
             this.QuantidadeVeiculos.TabIndex = 23;
-            this.QuantidadeVeiculos.Text = "label3";
             // 
             // dataGridView1
             // 
@@ -349,7 +336,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.QuantidadeVeiculos);
             this.Controls.Add(this.LucroTotal);
-            this.Controls.Add(this.AdicionarMensalista);
             this.Controls.Add(this.AdicionarCarro);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -387,7 +373,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AdicionarCarro;
-        private System.Windows.Forms.Button AdicionarMensalista;
         private System.Windows.Forms.DataGridView dataGridView1;
         private NovoEstacionamento novoEstacionamento;
         private System.Windows.Forms.BindingSource historicodiarioBindingSource;

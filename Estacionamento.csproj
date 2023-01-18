@@ -65,18 +65,6 @@
     <Compile Include="Histórico_Diaristas.Designer.cs">
       <DependentUpon>Histórico_Diaristas.cs</DependentUpon>
     </Compile>
-    <Compile Include="MensalistaGeral.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MensalistaGeral.Designer.cs">
-      <DependentUpon>MensalistaGeral.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Mensalistas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Mensalistas.Designer.cs">
-      <DependentUpon>Mensalistas.cs</DependentUpon>
-    </Compile>
     <Compile Include="NovoEstacionamento.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,12 +84,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Histórico_Diaristas.resx">
       <DependentUpon>Histórico_Diaristas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MensalistaGeral.resx">
-      <DependentUpon>MensalistaGeral.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mensalistas.resx">
-      <DependentUpon>Mensalistas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
