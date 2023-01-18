@@ -39,14 +39,14 @@
             this.ticketTableAdapter = new Estacionamento.EstacionamentoDataSetTableAdapters.TicketTableAdapter();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.cODTicketDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bilheteBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.novoEstacionamentoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.novoEstacionamento = new Estacionamento.NovoEstacionamento();
             this.bilheteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bilheteTableAdapter = new Estacionamento.NovoEstacionamentoTableAdapters.BilheteTableAdapter();
-            this.cODTicketDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataEntradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.estacionamentoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -64,6 +64,9 @@
             this.Botao_Pesquisar.TabIndex = 0;
             this.Botao_Pesquisar.Text = "Pesquisar";
             this.Botao_Pesquisar.UseVisualStyleBackColor = true;
+            this.Botao_Pesquisar.Click += new System.EventHandler(this.Botao_Pesquisar_Click);
+            this.Botao_Pesquisar.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Botao_Pesquisar.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Botao_Adicionar_Carro
             // 
@@ -74,6 +77,8 @@
             this.Botao_Adicionar_Carro.Text = "+ Carro";
             this.Botao_Adicionar_Carro.UseVisualStyleBackColor = true;
             this.Botao_Adicionar_Carro.Click += new System.EventHandler(this.Botao_Adicionar_Carro_Click);
+            this.Botao_Adicionar_Carro.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Botao_Adicionar_Carro.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Botao_remover_carro
             // 
@@ -84,6 +89,8 @@
             this.Botao_remover_carro.Text = "- Carro";
             this.Botao_remover_carro.UseVisualStyleBackColor = true;
             this.Botao_remover_carro.Click += new System.EventHandler(this.Botao_remover_carro_Click);
+            this.Botao_remover_carro.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Botao_remover_carro.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Botao_Historico
             // 
@@ -94,6 +101,8 @@
             this.Botao_Historico.Text = "Histórico";
             this.Botao_Historico.UseVisualStyleBackColor = true;
             this.Botao_Historico.Click += new System.EventHandler(this.Botao_Historico_Click);
+            this.Botao_Historico.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Botao_Historico.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // textBox1
             // 
@@ -140,6 +149,25 @@
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
+            // cODTicketDataGridViewTextBoxColumn
+            // 
+            this.cODTicketDataGridViewTextBoxColumn.DataPropertyName = "COD_Ticket";
+            this.cODTicketDataGridViewTextBoxColumn.HeaderText = "Ticket";
+            this.cODTicketDataGridViewTextBoxColumn.Name = "cODTicketDataGridViewTextBoxColumn";
+            // 
+            // placacarroDataGridViewTextBoxColumn
+            // 
+            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
+            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
+            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
+            // 
+            // dataEntradaDataGridViewTextBoxColumn
+            // 
+            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
+            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data/Hora Entrada";
+            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
+            this.dataEntradaDataGridViewTextBoxColumn.Width = 200;
+            // 
             // bilheteBindingSource1
             // 
             this.bilheteBindingSource1.DataMember = "Bilhete";
@@ -164,25 +192,6 @@
             // 
             this.bilheteTableAdapter.ClearBeforeFill = true;
             // 
-            // cODTicketDataGridViewTextBoxColumn
-            // 
-            this.cODTicketDataGridViewTextBoxColumn.DataPropertyName = "COD_Ticket";
-            this.cODTicketDataGridViewTextBoxColumn.HeaderText = "Ticket";
-            this.cODTicketDataGridViewTextBoxColumn.Name = "cODTicketDataGridViewTextBoxColumn";
-            // 
-            // placacarroDataGridViewTextBoxColumn
-            // 
-            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
-            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
-            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
-            // 
-            // dataEntradaDataGridViewTextBoxColumn
-            // 
-            this.dataEntradaDataGridViewTextBoxColumn.DataPropertyName = "DataEntrada";
-            this.dataEntradaDataGridViewTextBoxColumn.HeaderText = "Data/Hora Entrada";
-            this.dataEntradaDataGridViewTextBoxColumn.Name = "dataEntradaDataGridViewTextBoxColumn";
-            this.dataEntradaDataGridViewTextBoxColumn.Width = 200;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +204,7 @@
             this.Controls.Add(this.Botao_Adicionar_Carro);
             this.Controls.Add(this.Botao_Pesquisar);
             this.Controls.Add(this.textBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";

@@ -53,6 +53,29 @@ namespace Estacionamento
         {
             Application.Run(new Histórico_Diaristas());
         }
+
+        private void PassandoMouse(object sender, EventArgs e)
+        {
+            Botao_Adicionar_Carro.Cursor = Cursors.Hand;
+            Botao_remover_carro.Cursor = Cursors.Hand;
+            Botao_Pesquisar.Cursor = Cursors.Hand;
+            Botao_Historico.Cursor = Cursors.Hand;
+        }
+
+        private void TirandoMouse(object sender, EventArgs e)
+        {
+            Botao_Adicionar_Carro.Cursor = Cursors.Default;
+            Botao_remover_carro.Cursor = Cursors.Default;
+            Botao_Pesquisar.Cursor = Cursors.Default;
+            Botao_Historico.Cursor = Cursors.Default;
+        }
+
+        private void Botao_Pesquisar_Click(object sender, EventArgs e)
+        {
+            comandos.BarradePesquisa(textBox1.Text, dataGridView1);
+            textBox1.Text = "";
+        }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Int32 selecionados = dataGridView1.GetCellCount(DataGridViewElementStates.Selected);//Recebe o número geral de celulas selecionadas no click

@@ -28,6 +28,7 @@ namespace Estacionamento
             QuantidadeVeiculos.Text = "";
             LucroTotal.Text = banco.LucroTotal(dataGridView1);
             QuantidadeVeiculos.Text = banco.QuantidadeVeiculos(dataGridView1);
+            
         }
 
         private void Voltar_Click(object sender, EventArgs e)
@@ -52,12 +53,51 @@ namespace Estacionamento
             adicionar.SetApartmentState(ApartmentState.MTA);
             adicionar.Start();
         }
+
         private void abrirNovoCarro(object obj)
         {
             //roda o comando para adicionar um novo carro
             Application.Run(new NovoCarro());
         }
-        
+
+        private void TirandooMouse(object sender, EventArgs e)
+        {
+            CheckCarro.Cursor = Cursors.Default;
+            CheckMoto.Cursor = Cursors.Default;
+            CheckVan.Cursor = Cursors.Default;
+            CheckOnibus.Cursor = Cursors.Default;
+            CheckCaminhao.Cursor = Cursors.Default;
+            Check24Horas.Cursor = Cursors.Default;
+            Check3Dias.Cursor = Cursors.Default;
+            Check7Dias.Cursor = Cursors.Default;
+            Check15Dias.Cursor = Cursors.Default;
+            Check30Dias.Cursor = Cursors.Default;
+            Lavagem.Cursor = Cursors.Default;
+            Diaristas.Cursor = Cursors.Default;
+            AdicionarCarro.Cursor = Cursors.Default;
+            Pesquisar.Cursor = Cursors.Default;
+            Voltar.Cursor = Cursors.Default;
+        }
+
+        private void PassandoSobre(object sender, EventArgs e)
+        {
+            CheckCarro.Cursor = Cursors.Hand;
+            CheckMoto.Cursor = Cursors.Hand;
+            CheckVan.Cursor = Cursors.Hand;
+            CheckOnibus.Cursor = Cursors.Hand;
+            CheckCaminhao.Cursor = Cursors.Hand;
+            Check24Horas.Cursor = Cursors.Hand;
+            Check3Dias.Cursor = Cursors.Hand;
+            Check7Dias.Cursor = Cursors.Hand;
+            Check15Dias.Cursor = Cursors.Hand;
+            Check30Dias.Cursor = Cursors.Hand;
+            Lavagem.Cursor = Cursors.Hand;
+            Diaristas.Cursor = Cursors.Hand;
+            AdicionarCarro.Cursor = Cursors.Hand;
+            Pesquisar.Cursor = Cursors.Hand;
+            Voltar.Cursor = Cursors.Hand;
+        }
+
         private void OpcoesMarcadas(object sender, EventArgs e)
         {
             string automoveis = "";
@@ -134,6 +174,13 @@ namespace Estacionamento
             
             LucroTotal.Text=banco.LucroTotal(dataGridView1);
             QuantidadeVeiculos.Text = banco.QuantidadeVeiculos(dataGridView1);
+        }
+        private void Pesquisar_Click(object sender, EventArgs e)
+        {
+            banco.BarradePesquisaHistorico(textBox1.Text, dataGridView1);
+            LucroTotal.Text = banco.LucroTotal(dataGridView1);
+            QuantidadeVeiculos.Text = banco.QuantidadeVeiculos(dataGridView1);
+            textBox1.Text = "";
         }
     }
 }

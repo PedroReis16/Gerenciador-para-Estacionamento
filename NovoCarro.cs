@@ -143,6 +143,33 @@ namespace Estacionamento
             }
 
         }
+
+        private void PassandoMouse(object sender, EventArgs e)
+        {
+            Voltar.Cursor = Cursors.Hand;
+            Pesquisar.Cursor = Cursors.Hand;
+            Adicionar.Cursor = Cursors.Hand;
+            Remover.Cursor = Cursors.Hand;
+            TipodeCarro.Cursor = Cursors.Hand;
+            TipoDeEstadia.Cursor = Cursors.Hand;
+        }
+
+        private void TirandoMouse(object sender, EventArgs e)
+        {
+            Voltar.Cursor = Cursors.Default;
+            Pesquisar.Cursor = Cursors.Default;
+            Adicionar.Cursor = Cursors.Default;
+            Remover.Cursor = Cursors.Default;
+            TipodeCarro.Cursor = Cursors.Default;
+            TipoDeEstadia.Cursor = Cursors.Default;
+        }
+
+        private void Pesquisar_Click(object sender, EventArgs e)
+        {
+            comandos.BarradePesquisa(textBox1.Text, dataGridView1);
+            textBox1.Text = "";
+        }
+
         private void Remover_Click(object sender, EventArgs e)
         {
             //clique que chama o método que irá fazer todas as operações

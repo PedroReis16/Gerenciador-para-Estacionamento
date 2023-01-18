@@ -63,6 +63,8 @@
             this.Voltar.Text = "Voltar";
             this.Voltar.UseVisualStyleBackColor = true;
             this.Voltar.Click += new System.EventHandler(this.Voltar_Click);
+            this.Voltar.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Voltar.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Remover
             // 
@@ -73,6 +75,8 @@
             this.Remover.Text = "Remover";
             this.Remover.UseVisualStyleBackColor = true;
             this.Remover.Click += new System.EventHandler(this.Remover_Click);
+            this.Remover.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Remover.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Adicionar
             // 
@@ -83,6 +87,8 @@
             this.Adicionar.Text = "Adicionar";
             this.Adicionar.UseVisualStyleBackColor = true;
             this.Adicionar.Click += new System.EventHandler(this.Adicionar_Click);
+            this.Adicionar.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Adicionar.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Pesquisar
             // 
@@ -92,6 +98,9 @@
             this.Pesquisar.TabIndex = 4;
             this.Pesquisar.Text = "Pesquisar";
             this.Pesquisar.UseVisualStyleBackColor = true;
+            this.Pesquisar.Click += new System.EventHandler(this.Pesquisar_Click);
+            this.Pesquisar.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.Pesquisar.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // textBox1
             // 
@@ -127,6 +136,8 @@
             this.TipoDeEstadia.Name = "TipoDeEstadia";
             this.TipoDeEstadia.Size = new System.Drawing.Size(289, 21);
             this.TipoDeEstadia.TabIndex = 7;
+            this.TipoDeEstadia.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.TipoDeEstadia.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // TipodeCarro
             // 
@@ -142,6 +153,8 @@
             this.TipodeCarro.Name = "TipodeCarro";
             this.TipodeCarro.Size = new System.Drawing.Size(289, 21);
             this.TipodeCarro.TabIndex = 8;
+            this.TipodeCarro.MouseEnter += new System.EventHandler(this.PassandoMouse);
+            this.TipodeCarro.MouseLeave += new System.EventHandler(this.TirandoMouse);
             // 
             // Placa_carro
             // 
@@ -238,6 +251,7 @@
             this.Controls.Add(this.Adicionar);
             this.Controls.Add(this.Remover);
             this.Controls.Add(this.Voltar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "NovoCarro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Novo Veículo";

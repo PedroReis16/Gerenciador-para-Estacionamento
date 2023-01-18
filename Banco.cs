@@ -20,9 +20,8 @@ namespace Estacionamento
         SqlConnection banco = AbrindoBanco();
         Precos valores = new Precos();
         int tempo,modelo,estadia;
-        string PlacaCarro,produto;
-        string oferecido;
-        int conquistado;
+        string PlacaCarro;
+        string oferecido,produto;
         int periodo;
         int[] carros;
         int codigo;
@@ -470,7 +469,6 @@ namespace Estacionamento
             if (dias == "" && estadia == "" && veiculos == "")//Caso nada esteja selecionado, o sistema irá chamar o método de select da Tabela Histórioco
             {
                 TabelaHistorico(tabela);
-                codigo=0;
             }
             else
             {
@@ -491,7 +489,6 @@ namespace Estacionamento
 
                         adapter.Dispose();
 
-                        codigo = 1;
                     }
                     if (dias != "" && estadia != "" && veiculos == "")//Comando caso o tempo E a estadia estejam selecionados
                     {
@@ -505,7 +502,6 @@ namespace Estacionamento
                         dataGridView1.DataSource = dt;
 
                         adapter.Dispose();
-                        codigo = 2;
                     }
                     if (dias != "" && estadia == "" && veiculos != "")//Comando caso o tempo E o tipo de carro estejam selecionados
                     {
@@ -579,7 +575,6 @@ namespace Estacionamento
                         }
                         //Comandos que juntam a varivel serviço com outra
 
-                        codigo = 3;
                     }
                     if (dias == "" && estadia != "" && veiculos == "") //Comando caso só um tipo estadia esteja selecionado
                     {
@@ -593,7 +588,6 @@ namespace Estacionamento
 
                         adapter.Dispose();
 
-                        codigo = 4;
                     }
                     if (dias == "" && estadia != "" && veiculos != "") //Comando caso um tipo de estadia E pelo menos um tipo de carro esteja selecionado
                     {
@@ -682,7 +676,6 @@ namespace Estacionamento
 
                                 break;
                         }
-                        codigo = 5;
                     }
 
                     //Comandos baseado no tipo de carro
@@ -801,9 +794,253 @@ namespace Estacionamento
             total = linhas.ToString();
             return total;
         }
+        public void BarradePesquisaHistorico(string info,DataGridView tabela)
+        {
+            info = info.ToUpper();
+            string pesquisa;
+            string comando;
+            string dia, mes, ano;
+            int day,month,year;
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter;
+            DataGridView dataGridView1 = tabela;
+            try
+            {
+                banco.Open();
+                switch (info)
+                {
+                    case "MOTO":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 1 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "CARRO":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 2 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "VAN":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 3 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "ONIBUS":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 4 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "CAMINHAO":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 5 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    default:
+                        switch (info.Length)
+                        {
+                            case 10://mudança na tabela a partir de uma data
+                                dia = info[0] + "" + info[1];
+                                mes = info[3] + "" + info[4];
+                                ano = info[6] + "" + info[7] + info[8] + "" + info[9];
+                                day = int.Parse(dia);
+                                month = int.Parse(mes);
+                                year = int.Parse(ano);
+                                Console.WriteLine(dia);
+                                Console.WriteLine(mes);
+                                Console.WriteLine(ano);
+
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H where day(Data_entrada)= @DIA and month(Data_entrada)=@MES and year(Data_entrada)=@ANO and day(Data_saida)= @DIA and month(Data_saida)= @MES and year(Data_saida)= @ANO";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@DIA", day);
+                                adapter.SelectCommand.Parameters.AddWithValue("@MES", month);
+                                adapter.SelectCommand.Parameters.AddWithValue("@ANO", year);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 7://pesquisa na tabela a partir da placa sem o traço
+
+                                info = info.Insert(3, "-");
+
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H where H.Placa_carro like @Placa ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Placa", info);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 8: // Pesquisa na tabela a partir da placa com o traço
+                                comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H where H.Placa_carro like @Placa ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Placa", info);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                        }
+                        break;
+                }
+                banco.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Pesquisando ERRO: {0}",e.Message);
+            }
+            //Pesquisa a partir do código do veiculo
+        }
         public void BarradePesquisa(string info,DataGridView tabela)
         {
+            info = info.ToUpper();
+            string pesquisa;
+            string comando;
+            string dia, mes, ano;
+            int day, month, year;
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter;
+            DataGridView dataGridView1 = tabela;
+            try
+            {
+                banco.Open();
+                switch (info)
+                {
+                    case "MOTO":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 1 ";
 
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "CARRO":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 2 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "VAN":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 3 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "ONIBUS":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 4 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "CAMINHAO":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 5 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    default:
+                        switch (info.Length)
+                        {
+                            case 10://mudança na tabela a partir de uma data
+                                dia = info[0] + "" + info[1];
+                                mes = info[3] + "" + info[4];
+                                ano = info[6] + "" + info[7] + info[8] + "" + info[9];
+                                day = int.Parse(dia);
+                                month = int.Parse(mes);
+                                year = int.Parse(ano);
+                                Console.WriteLine(dia);
+                                Console.WriteLine(mes);
+                                Console.WriteLine(ano);
+
+                                comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B where day(DataEntrada)= @DIA and month(DataEntrada)=@MES and year(DataEntrada)=@ANO";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@DIA", day);
+                                adapter.SelectCommand.Parameters.AddWithValue("@MES", month);
+                                adapter.SelectCommand.Parameters.AddWithValue("@ANO", year);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 7://pesquisa na tabela a partir da placa sem o traço
+
+                                info = info.Insert(3, "-");
+
+                                comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B where B.Placa_carro like @Placa ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Placa", info);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            case 8: // Pesquisa na tabela a partir da placa com o traço
+                                comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B where B.Placa_carro like @Placa ";
+
+                                adapter = new SqlDataAdapter(comando, banco);
+                                adapter.SelectCommand.Parameters.AddWithValue("@Placa", info);
+
+                                adapter.Fill(dt);
+                                dataGridView1.DataSource = dt;
+
+                                adapter.Dispose();
+                                break;
+                            
+                        }
+                        break;
+                }
+                if (info == "")
+                {
+                    TabelaEstacionados(tabela);
+                }
+                banco.Close();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Pesquisa ESTACIONADO ERRO: {0}",e.Message) ;
+            }
         }
     }
 }
