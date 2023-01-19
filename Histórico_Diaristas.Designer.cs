@@ -44,10 +44,6 @@
             this.LucroTotal = new System.Windows.Forms.Label();
             this.QuantidadeVeiculos = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataentradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.datasaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorPagoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicodiarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.novoEstacionamento = new Estacionamento.NovoEstacionamento();
             this.historico_diarioTableAdapter = new Estacionamento.NovoEstacionamentoTableAdapters.Historico_diarioTableAdapter();
@@ -57,6 +53,10 @@
             this.CheckOnibus = new System.Windows.Forms.CheckBox();
             this.CheckCaminhao = new System.Windows.Forms.CheckBox();
             this.Check3Dias = new System.Windows.Forms.CheckBox();
+            this.placacarroDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataentradaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datasaidaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valorPagoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.historicodiarioBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.novoEstacionamento)).BeginInit();
@@ -247,30 +247,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(431, 342);
             this.dataGridView1.TabIndex = 24;
             // 
-            // placacarroDataGridViewTextBoxColumn
-            // 
-            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
-            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa_carro";
-            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
-            // 
-            // dataentradaDataGridViewTextBoxColumn
-            // 
-            this.dataentradaDataGridViewTextBoxColumn.DataPropertyName = "Data_entrada";
-            this.dataentradaDataGridViewTextBoxColumn.HeaderText = "Data_entrada";
-            this.dataentradaDataGridViewTextBoxColumn.Name = "dataentradaDataGridViewTextBoxColumn";
-            // 
-            // datasaidaDataGridViewTextBoxColumn
-            // 
-            this.datasaidaDataGridViewTextBoxColumn.DataPropertyName = "Data_saida";
-            this.datasaidaDataGridViewTextBoxColumn.HeaderText = "Data_saida";
-            this.datasaidaDataGridViewTextBoxColumn.Name = "datasaidaDataGridViewTextBoxColumn";
-            // 
-            // valorPagoDataGridViewTextBoxColumn
-            // 
-            this.valorPagoDataGridViewTextBoxColumn.DataPropertyName = "ValorPago";
-            this.valorPagoDataGridViewTextBoxColumn.HeaderText = "ValorPago";
-            this.valorPagoDataGridViewTextBoxColumn.Name = "valorPagoDataGridViewTextBoxColumn";
-            // 
             // historicodiarioBindingSource
             // 
             this.historicodiarioBindingSource.DataMember = "Historico_diario";
@@ -369,6 +345,30 @@
             this.Check3Dias.MouseEnter += new System.EventHandler(this.PassandoSobre);
             this.Check3Dias.MouseLeave += new System.EventHandler(this.TirandooMouse);
             // 
+            // placacarroDataGridViewTextBoxColumn
+            // 
+            this.placacarroDataGridViewTextBoxColumn.DataPropertyName = "Placa_carro";
+            this.placacarroDataGridViewTextBoxColumn.HeaderText = "Placa";
+            this.placacarroDataGridViewTextBoxColumn.Name = "placacarroDataGridViewTextBoxColumn";
+            // 
+            // dataentradaDataGridViewTextBoxColumn
+            // 
+            this.dataentradaDataGridViewTextBoxColumn.DataPropertyName = "Data_entrada";
+            this.dataentradaDataGridViewTextBoxColumn.HeaderText = "Data Entrada";
+            this.dataentradaDataGridViewTextBoxColumn.Name = "dataentradaDataGridViewTextBoxColumn";
+            // 
+            // datasaidaDataGridViewTextBoxColumn
+            // 
+            this.datasaidaDataGridViewTextBoxColumn.DataPropertyName = "Data_saida";
+            this.datasaidaDataGridViewTextBoxColumn.HeaderText = "Data Saida";
+            this.datasaidaDataGridViewTextBoxColumn.Name = "datasaidaDataGridViewTextBoxColumn";
+            // 
+            // valorPagoDataGridViewTextBoxColumn
+            // 
+            this.valorPagoDataGridViewTextBoxColumn.DataPropertyName = "ValorPago";
+            this.valorPagoDataGridViewTextBoxColumn.HeaderText = "Valor Pago";
+            this.valorPagoDataGridViewTextBoxColumn.Name = "valorPagoDataGridViewTextBoxColumn";
+            // 
             // Histórico_Diaristas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -431,11 +431,11 @@
         private System.Windows.Forms.CheckBox CheckOnibus;
         private System.Windows.Forms.CheckBox CheckCaminhao;
         private System.Windows.Forms.CheckBox Check3Dias;
+        public System.Windows.Forms.Label LucroTotal;
+        public System.Windows.Forms.Label QuantidadeVeiculos;
         private System.Windows.Forms.DataGridViewTextBoxColumn placacarroDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataentradaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn datasaidaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorPagoDataGridViewTextBoxColumn;
-        public System.Windows.Forms.Label LucroTotal;
-        public System.Windows.Forms.Label QuantidadeVeiculos;
     }
 }

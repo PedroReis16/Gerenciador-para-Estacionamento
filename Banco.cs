@@ -844,8 +844,16 @@ namespace Estacionamento
                         adapter.Fill(dt);
                         dataGridView1.DataSource = dt;
                         break;
+                    case "ÔNIBUS":
+                        comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 4 ";
 
-                    case "CAMINHAO":
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
+                    case "CAMINHÃO":
                         comando = @"select H.Placa_carro,H.Data_entrada,H.Data_saida,H.ValorPago from Historico_diario as H Inner join Automoveis as A on A.Placa_carro = H.Placa_carro where A.TipoCarro like 5 ";
 
                         adapter = new SqlDataAdapter(comando, banco);
@@ -967,7 +975,24 @@ namespace Estacionamento
                         dataGridView1.DataSource = dt;
                         break;
 
+                    case "ÔNIBUS":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 4 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+
                     case "CAMINHAO":
+                        comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 5 ";
+
+                        adapter = new SqlDataAdapter(comando, banco);
+
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        break;
+                    case "CAMINHÃO":
                         comando = @"select B.COD_Ticket,B.Placa_carro,B.DataEntrada from Bilhete as B Inner join Automoveis as A on A.Placa_carro = B.Placa_carro where A.TipoCarro like 5 ";
 
                         adapter = new SqlDataAdapter(comando, banco);
