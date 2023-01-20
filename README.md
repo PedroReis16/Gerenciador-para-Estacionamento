@@ -3,7 +3,7 @@
 ## Sobre o projeto
 O projeto foi desenvolvido como forma de estudo sobre as linguagens C#, Windows Forms .NET e SQL Server.
 
-A aplicação consiste em um gerenciador de entrada e saída de veículos para um estacionamento, onde todos os dados são armazenados em tabelas do SQL Server, ficando disponíveis para gestão conforme a necessidade do usuário
+A aplicação consiste em um gerenciador de entrada e saída de veículos para um estacionamento, onde todos os dados são armazenados em tabelas do SQL Server, ficando disponíveis para gestão conforme a necessidade do usuário.
 
 ### Layout do aplicativo
 ![Imagem tela inicial estacionamento](https://user-images.githubusercontent.com/114626303/213771702-d82ef416-0d36-4e2d-b7c2-2cd37b2aae57.png)
